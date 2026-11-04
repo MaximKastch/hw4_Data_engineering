@@ -1,0 +1,5 @@
+$ docker compose stop zk1
+ Container de-lab4-zookeeper-zk1-1  Stopping
+ Container de-lab4-zookeeper-zk1-1  Stopped
+
+[exit=0; elapsed_s=1.172]

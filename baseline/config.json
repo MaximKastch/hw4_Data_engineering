@@ -1,0 +1,19 @@
+{
+  "variant_confirmed": true,
+  "variant": "2. Программист, разработчик на Python",
+  "pattern": "python",
+  "sql_pattern": "python",
+  "bucket": "hh-lake",
+  "key": "raw/it_vacancies_2024.csv",
+  "chunk_rows": 2000,
+  "workers": 2,
+  "mapper_retries": 1,
+  "repetitions": 3,
+  "min_salary_n": 20,
+  "regions": [
+    "Москва",
+    "Санкт-Петербург",
+    "Екатеринбург"
+  ],
+  "role_filter": "Программист, разработчик"
+}

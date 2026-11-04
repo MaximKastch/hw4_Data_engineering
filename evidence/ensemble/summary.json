@@ -1,0 +1,46 @@
+{
+  "started_utc": "2026-11-04T14:47:08.874311+00:00",
+  "probe_path": "/lab4-quorum-b30c4894c5",
+  "initial_roles": {
+    "zk1": "follower",
+    "zk2": "follower",
+    "zk3": "leader"
+  },
+  "one_down_roles": {
+    "zk2": "follower",
+    "zk3": "leader"
+  },
+  "one_down": {
+    "stopped": "zk1",
+    "create_set_get_succeeded": true
+  },
+  "two_down": {
+    "stopped": [
+      "zk1",
+      "zk3"
+    ],
+    "survivor": "zk2",
+    "status_exit": 1,
+    "write_exit": 1,
+    "write_succeeded": false,
+    "rejected_path": "/lab4-no-quorum-b30c4894c5"
+  },
+  "restored_roles": {
+    "zk1": "follower",
+    "zk2": "follower",
+    "zk3": "leader"
+  },
+  "recovery": {
+    "committed_value_preserved": true,
+    "rejected_write_absent": true
+  },
+  "ephemeral": {
+    "path": "/lab4-ephemeral-b30c4894c5",
+    "ephemeral_owner": "0x100123f9bd00001",
+    "visible_while_owner_alive": true,
+    "owner_closed_with": "zkCli quit (graceful session close)",
+    "absent_after_close": true
+  },
+  "finished_utc": "2026-11-04T14:47:35.478659+00:00",
+  "all_checks_passed": true
+}

@@ -1,0 +1,4 @@
+$ docker compose exec -T zk2 cat /data/myid
+2
+
+[exit=0; elapsed_s=0.343]

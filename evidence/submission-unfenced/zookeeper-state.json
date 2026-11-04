@@ -1,0 +1,91 @@
+{
+  "run": "submission-unfenced",
+  "root": "/lab4/submission-unfenced",
+  "epoch": {
+    "data": 2,
+    "version": 2,
+    "ephemeral_owner": 0
+  },
+  "leader": null,
+  "checkpoint": {
+    "data": {
+      "path": "runtime/submission-unfenced/checkpoints/B-3894.json",
+      "next_index": 3894,
+      "coordinator": "B",
+      "epoch": 2,
+      "sha256": "6280e2d05411645fcb353c660ecae692076c6e2c085e77b801d7193c1cc1b5a1"
+    },
+    "version": 20,
+    "ephemeral_owner": 0
+  },
+  "result": {
+    "data": {
+      "coordinator": "A",
+      "epoch": 1,
+      "epoch_version": 1,
+      "path": "results/submission-unfenced/A/counts_2.csv",
+      "metrics": {
+        "selected_rows": 3894,
+        "vacancies_with_skills": 2986,
+        "unique_pairs": 17801,
+        "pair_frequency_sum": 81344,
+        "source_rows_before_projection": 229388,
+        "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+        "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+        "matches_lab3": true,
+        "restored_index": 0,
+        "processed_rows": 3894
+      }
+    },
+    "version": 2,
+    "ephemeral_owner": 0
+  },
+  "publications": [
+    {
+      "path": "/lab4/submission-unfenced/publications/result-0000000000",
+      "data": {
+        "coordinator": "B",
+        "epoch": 2,
+        "epoch_version": 2,
+        "path": "results/submission-unfenced/B/counts_2.csv",
+        "metrics": {
+          "selected_rows": 3894,
+          "vacancies_with_skills": 2986,
+          "unique_pairs": 17801,
+          "pair_frequency_sum": 81344,
+          "source_rows_before_projection": 229388,
+          "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+          "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+          "matches_lab3": true,
+          "restored_index": 800,
+          "processed_rows": 3094
+        }
+      },
+      "version": 0,
+      "ephemeral_owner": 0
+    },
+    {
+      "path": "/lab4/submission-unfenced/publications/result-0000000001",
+      "data": {
+        "coordinator": "A",
+        "epoch": 1,
+        "epoch_version": 1,
+        "path": "results/submission-unfenced/A/counts_2.csv",
+        "metrics": {
+          "selected_rows": 3894,
+          "vacancies_with_skills": 2986,
+          "unique_pairs": 17801,
+          "pair_frequency_sum": 81344,
+          "source_rows_before_projection": 229388,
+          "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+          "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+          "matches_lab3": true,
+          "restored_index": 0,
+          "processed_rows": 3894
+        }
+      },
+      "version": 0,
+      "ephemeral_owner": 0
+    }
+  ]
+}

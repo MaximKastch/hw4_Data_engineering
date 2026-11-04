@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru"><meta charset="utf-8"><title>ZooKeeper — результаты экспериментов</title>
+<style>
+*{box-sizing:border-box} body{margin:0;background:#eef2f6;color:#172539;font:18px/1.45 Arial,sans-serif}
+main{max-width:1380px;margin:28px auto;padding:32px 42px;background:white;border-radius:12px}
+h1{font-size:34px;line-height:1.2;margin:0 0 12px} h2{font-size:23px;margin:0 0 12px}
+p{margin:8px 0} .muted,.path{color:#586577} .path{font:14px/1.4 Consolas,monospace}
+.badge{display:inline-block;padding:6px 12px;background:#e3f4eb;color:#17653d;border-radius:6px;font-weight:bold}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px} section{padding:20px 22px;border:1px solid #dce3eb;border-radius:8px;margin-top:20px}
+table{width:100%;border-collapse:collapse;font-size:18px} td,th{padding:10px 12px;border-bottom:1px solid #dce3eb;text-align:left}
+th{background:#f1f5f9} td:nth-child(n+2),th:nth-child(n+2){width:23%;text-align:center}
+pre{font:14px/1.65 Consolas,monospace;background:#152334;color:#edf4ff;padding:16px;border-radius:6px;white-space:pre-wrap;overflow-wrap:anywhere;margin:10px 0 0}
+.hash{font:15px/1.5 Consolas,monospace;overflow-wrap:anywhere} .small{font-size:15px} footer{margin-top:20px;font-size:14px;color:#586577}
+@media print{body{background:white}main{margin:0;padding:8px;max-width:none}section{break-inside:avoid}@page{size:A4 landscape;margin:10mm}}
+</style><main>
+<h1>Apache ZooKeeper: отказ лидера и защита по эпохе</h1>
+<p class="muted">ДЗ № 4 · ZooKeeper 3.9.6 / Java 17 · три сервера · сессия 10 секунд</p>
+<p><span class="badge">Все проверки экспериментов пройдены</span></p>
+<div class="grid">
+<section><h2>Кворум</h2><p>zk1: follower, zk2: follower, zk3: leader</p>
+<p><b>2 из 3:</b> create → set → get выполнены.</p>
+<p><b>1 из 3:</b> сервер не обслуживает запросы; запись не выполнена.</p>
+<p>После восстановления подтверждённая запись сохранена.</p></section>
+<section><h2>Эфемерный узел</h2><p class="path">/lab4-ephemeral-b30c4894c5</p>
+<p>При открытой сессии виден второму клиенту.</p><p class="path">ephemeralOwner = 0x100123f9bd00001</p>
+<p>После <b>quit</b> владельца: <b>Node does not exist</b>.</p></section>
+</div>
+<section><h2>Настоящая пауза контейнера A: около 40 секунд</h2>
+<table><tr><th>Наблюдение</th><th>Без защиты</th><th>С защитой</th></tr><tr><td>Смена лидера, с</td><td>11.025</td><td>11.694</td></tr><tr><td>Восстановлено строк из чекпоинта</td><td>800</td><td>600</td></tr><tr><td>Успешных публикаций</td><td>2</td><td>1</td></tr><tr><td>Отклонённых публикаций</td><td>0</td><td>1</td></tr><tr><td>Версия /result</td><td>2</td><td>1</td></tr><tr><td>Владелец /result</td><td>A</td><td>B</td></tr></table>
+<p class="small muted">Смена лидера: от события Docker pause до записи became_leader координатора B; часы одной Linux VM.</p></section>
+<div class="grid"><section><h2>FENCING=0 · две записи</h2><p class='path'>submission-unfenced</p><pre>14:48:16.170 A became_leader epoch=1
+14:48:16.192 A restored next_index=0
+14:48:28.568 B became_leader epoch=2
+14:48:28.602 B restored next_index=800
+14:48:36.294 B published epoch=2 result_version=1
+14:49:04.895 A published epoch=1 result_version=2</pre></section><section><h2>FENCING=1 · старая эпоха отклонена</h2><p class='path'>submission-fenced</p><pre>14:49:09.491 A became_leader epoch=1
+14:49:09.515 A restored next_index=0
+14:49:22.478 B became_leader epoch=2
+14:49:22.505 B restored next_index=600
+14:49:30.394 B published epoch=2 result_version=1
+14:49:57.953 A publish_rejected epoch=1 error=BadVersionError</pre></section></div>
+<section><h2>Результаты совпали с ДЗ № 3</h2>
+<p><b>3 894</b> вакансии · <b>2 986</b> с навыками · <b>17 801</b> пара · <b>81 344</b> суммарная частота</p>
+<p>Оба координатора в обоих режимах получили CSV с тем же SHA-256:</p>
+<p class="hash">99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b</p></section>
+<footer>Снимок HTML-представления фактических журналов. В выдержках JSONL показаны время UTC, координатор, событие и его поля.
+Полные доказательства: evidence/ensemble, evidence/&lt;run&gt;, logs/&lt;run&gt; и results/&lt;run&gt;.
+Источник сводки: evidence/submission-summary.json.</footer>
+</main></html>

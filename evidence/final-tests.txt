@@ -1,0 +1,12 @@
+
+[2026-11-04T14:50:41.172644+00:00] $ docker compose run --rm -T app python -m unittest discover -s tests -v
+test_fences_old_epoch_before_and_after_new_publication (test_fencing.FencingIntegrationTest.test_fences_old_epoch_before_and_after_new_publication) ... ok
+test_stale_checkpoint_cannot_roll_back_progress (test_fencing.FencingIntegrationTest.test_stale_checkpoint_cannot_roll_back_progress) ... ok
+test_without_fencing_old_epoch_overwrites_result (test_fencing.FencingIntegrationTest.test_without_fencing_old_epoch_overwrites_result) ... ok
+
+----------------------------------------------------------------------
+Ran 3 tests in 0.349s
+
+OK
+
+exit_code=0

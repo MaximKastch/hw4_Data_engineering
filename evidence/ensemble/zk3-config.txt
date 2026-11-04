@@ -1,0 +1,20 @@
+$ docker compose exec -T zk3 cat /conf/zoo.cfg
+dataDir=/data
+dataLogDir=/datalog
+tickTime=2000
+initLimit=10
+syncLimit=5
+autopurge.snapRetainCount=3
+autopurge.purgeInterval=0
+maxClientCnxns=60
+standaloneEnabled=true
+admin.enableServer=true
+server.1=zk1:2888:3888;2181
+server.2=zk2:2888:3888;2181
+server.3=zk3:2888:3888;2181
+4lw.commands.whitelist=srvr,stat,ruok,mntr
+minSessionTimeout=4000
+maxSessionTimeout=20000
+admin.enableServer=false
+
+[exit=0; elapsed_s=0.266]

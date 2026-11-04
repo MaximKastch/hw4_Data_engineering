@@ -1,0 +1,62 @@
+name: de-lab4-zookeeper
+
+x-zookeeper: &zookeeper
+  image: zookeeper:3.9.6-jre-17@sha256:bbf678337a9242fcb6e49e51193855078ec515251cf11fe0bcfabae6a10e040a
+  restart: "no"
+  environment: &zk-env
+    ZOO_SERVERS: server.1=zk1:2888:3888;2181 server.2=zk2:2888:3888;2181 server.3=zk3:2888:3888;2181
+    ZOO_TICK_TIME: 2000
+    ZOO_INIT_LIMIT: 10
+    ZOO_SYNC_LIMIT: 5
+    ZOO_4LW_COMMANDS_WHITELIST: srvr,stat,ruok,mntr
+    ZOO_CFG_EXTRA: "minSessionTimeout=4000 maxSessionTimeout=20000 admin.enableServer=false"
+  healthcheck:
+    test: ["CMD", "zkServer.sh", "status"]
+    interval: 3s
+    timeout: 3s
+    retries: 20
+  mem_limit: 512m
+
+services:
+  zk1:
+    <<: *zookeeper
+    hostname: zk1
+    environment:
+      <<: *zk-env
+      ZOO_MY_ID: 1
+    ports: ["127.0.0.1:2181:2181"]
+    volumes: ["zk1-data:/data", "zk1-log:/datalog"]
+  zk2:
+    <<: *zookeeper
+    hostname: zk2
+    environment:
+      <<: *zk-env
+      ZOO_MY_ID: 2
+    ports: ["127.0.0.1:2182:2181"]
+    volumes: ["zk2-data:/data", "zk2-log:/datalog"]
+  zk3:
+    <<: *zookeeper
+    hostname: zk3
+    environment:
+      <<: *zk-env
+      ZOO_MY_ID: 3
+    ports: ["127.0.0.1:2183:2181"]
+    volumes: ["zk3-data:/data", "zk3-log:/datalog"]
+  app:
+    build: .
+    image: de-lab4-coordinator:local
+    profiles: ["tools"]
+    working_dir: /work
+    volumes: [".:/work"]
+    environment:
+      PYTHONUNBUFFERED: "1"
+      ZK_HOSTS: zk1:2181,zk2:2181,zk3:2181
+    command: ["python", "-m", "src.coordinator", "--help"]
+
+volumes:
+  zk1-data:
+  zk1-log:
+  zk2-data:
+  zk2-log:
+  zk3-data:
+  zk3-log:

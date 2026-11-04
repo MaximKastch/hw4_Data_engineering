@@ -1,0 +1,11 @@
+$ docker compose up -d --wait --wait-timeout 90 zk1 zk3
+ Container de-lab4-zookeeper-zk1-1  Starting
+ Container de-lab4-zookeeper-zk3-1  Starting
+ Container de-lab4-zookeeper-zk3-1  Started
+ Container de-lab4-zookeeper-zk1-1  Started
+ Container de-lab4-zookeeper-zk1-1  Waiting
+ Container de-lab4-zookeeper-zk3-1  Waiting
+ Container de-lab4-zookeeper-zk3-1  Healthy
+ Container de-lab4-zookeeper-zk1-1  Healthy
+
+[exit=0; elapsed_s=4.718]

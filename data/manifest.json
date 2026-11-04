@@ -1,0 +1,36 @@
+{
+  "source_repository": "https://github.com/MaximKastch/hw3_Data_engineering",
+  "source_commit": "3a0101b690b04ac8bf5962b674afb178de91a401",
+  "source_file": "it_vacancies_2024.csv",
+  "source_bytes": 847619384,
+  "source_sha256": "303db922b541e4440906f5a7e8be32fb55e8808f950ffddb8c272f1548212a65",
+  "source_rows": 229388,
+  "selection": {
+    "role_filter": "Программист, разработчик",
+    "name_regex_lowercase": "python"
+  },
+  "projection_fields": [
+    "name",
+    "role",
+    "key_skills"
+  ],
+  "projection": "data/selected_vacancies.csv.gz",
+  "projection_bytes": 75994,
+  "projection_sha256": "86ec5f84828ede71aff512761602ccd440484d136eda81bb9233e16a1aefe54c",
+  "projection_preserves_source_order": true,
+  "selected_rows": 3894,
+  "vacancies_with_skills": 2986,
+  "unique_pairs": 17801,
+  "pair_frequency_sum": 81344,
+  "counts_csv_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+  "baseline_counts_csv_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+  "checks": {
+    "source_rows_equal": true,
+    "selected_rows_equal": true,
+    "with_skills_equal": true,
+    "unique_pairs_equal": true,
+    "pair_frequency_sum_equal": true,
+    "counts_csv_byte_equal": true
+  },
+  "notes": "Input projection contains every selected vacancy, including empty skills; it is not a sample. Only irrelevant columns and rows rejected by the original filter are omitted. Pair counts are recomputed from input skills, never loaded from the baseline."
+}

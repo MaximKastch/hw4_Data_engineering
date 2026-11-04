@@ -1,0 +1,7 @@
+$ docker compose ps --all
+NAME                      IMAGE                                                                                            COMMAND                  SERVICE   CREATED         STATUS                       PORTS
+de-lab4-zookeeper-zk1-1   zookeeper:3.9.6-jre-17@sha256:bbf678337a9242fcb6e49e51193855078ec515251cf11fe0bcfabae6a10e040a   "/docker-entrypoint.…"   zk1       4 minutes ago   Exited (143) 7 seconds ago   
+de-lab4-zookeeper-zk2-1   zookeeper:3.9.6-jre-17@sha256:bbf678337a9242fcb6e49e51193855078ec515251cf11fe0bcfabae6a10e040a   "/docker-entrypoint.…"   zk2       4 minutes ago   Up 4 minutes (healthy)       127.0.0.1:2182->2181/tcp
+de-lab4-zookeeper-zk3-1   zookeeper:3.9.6-jre-17@sha256:bbf678337a9242fcb6e49e51193855078ec515251cf11fe0bcfabae6a10e040a   "/docker-entrypoint.…"   zk3       4 minutes ago   Exited (143) 3 seconds ago   
+
+[exit=0; elapsed_s=0.234]

@@ -1,0 +1,234 @@
+
+[2026-11-04T14:49:08.609797+00:00] $ docker compose run -d --name de-lab4-submission-fenced-a -e FENCING=1 app python -m src.coordinator --run submission-fenced --id A
+c3dd61d63f14f6d09ca6a7a7ec75f9474f6b9066b8f6f38d2254ceac09f596fb
+
+exit_code=0
+
+[2026-11-04T14:49:09.578538+00:00] $ docker compose run -d --name de-lab4-submission-fenced-b -e FENCING=1 app python -m src.coordinator --run submission-fenced --id B
+d226aeae53b6a92c9a1bca8078c3b92b6cd3f0261a08a4edbec65c22e13553be
+
+exit_code=0
+
+[2026-11-04T14:49:10.478141+00:00] $ docker exec de-lab4-submission-fenced-a python -c "import time,json;print(json.dumps({'time_ns':time.time_ns(),'monotonic_ns':time.monotonic_ns()}))"
+{"time_ns": 1793803750678980605, "monotonic_ns": 306264363599827}
+
+exit_code=0
+
+[2026-11-04T14:49:10.701002+00:00] $ docker pause de-lab4-submission-fenced-a
+de-lab4-submission-fenced-a
+
+exit_code=0
+
+[2026-11-04T14:49:50.816565+00:00] $ docker unpause de-lab4-submission-fenced-a
+de-lab4-submission-fenced-a
+
+exit_code=0
+
+[2026-11-04T14:49:58.001922+00:00] $ docker wait de-lab4-submission-fenced-a
+0
+
+exit_code=0
+
+[2026-11-04T14:49:58.196393+00:00] $ docker logs de-lab4-submission-fenced-a
+{"timestamp": "2026-11-04T14:49:09.436736+00:00", "time_ns": 1793803749436763381, "monotonic_ns": 306263121381977, "run": "submission-fenced", "coordinator": "A", "event": "session_state", "state": "CONNECTED"}
+{"timestamp": "2026-11-04T14:49:09.436844+00:00", "time_ns": 1793803749436856528, "monotonic_ns": 306263121474166, "run": "submission-fenced", "coordinator": "A", "event": "started", "fencing": true, "requested_session_timeout_ms": 10000, "session_id": "0x100123f9bd00007", "hosts": "zk1:2181,zk2:2181,zk3:2181"}
+{"timestamp": "2026-11-04T14:49:09.482287+00:00", "time_ns": 1793803749482299953, "monotonic_ns": 306263166917432, "run": "submission-fenced", "coordinator": "A", "event": "waiting_for_leadership"}
+{"timestamp": "2026-11-04T14:49:09.491015+00:00", "time_ns": 1793803749491028687, "monotonic_ns": 306263175646194, "run": "submission-fenced", "coordinator": "A", "event": "became_leader", "epoch": 1, "epoch_version": 1}
+{"timestamp": "2026-11-04T14:49:09.515963+00:00", "time_ns": 1793803749515975396, "monotonic_ns": 306263200593064, "run": "submission-fenced", "coordinator": "A", "event": "restored", "next_index": 0, "total_rows": 3894, "checkpoint": {}}
+{"timestamp": "2026-11-04T14:49:09.547228+00:00", "time_ns": 1793803749547243674, "monotonic_ns": 306263231861323, "run": "submission-fenced", "coordinator": "A", "event": "checkpoint", "next_index": 200, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/A-200.json"}
+{"timestamp": "2026-11-04T14:49:09.983502+00:00", "time_ns": 1793803749983519798, "monotonic_ns": 306263668137532, "run": "submission-fenced", "coordinator": "A", "event": "checkpoint", "next_index": 400, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/A-400.json"}
+{"timestamp": "2026-11-04T14:49:10.409892+00:00", "time_ns": 1793803750409909093, "monotonic_ns": 306264094526936, "run": "submission-fenced", "coordinator": "A", "event": "checkpoint", "next_index": 600, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/A-600.json"}
+WARNING:kazoo.client:Connection dropped: socket connection broken
+WARNING:kazoo.client:Transition to CONNECTING
+{"timestamp": "2026-11-04T14:49:50.855226+00:00", "time_ns": 1793803790855243897, "monotonic_ns": 306304611131630, "run": "submission-fenced", "coordinator": "A", "event": "session_state", "state": "SUSPENDED"}
+WARNING:kazoo.client:Session has expired
+{"timestamp": "2026-11-04T14:49:50.857712+00:00", "time_ns": 1793803790857726065, "monotonic_ns": 306304613613355, "run": "submission-fenced", "coordinator": "A", "event": "session_state", "state": "LOST"}
+{"timestamp": "2026-11-04T14:49:50.867249+00:00", "time_ns": 1793803790867266671, "monotonic_ns": 306304623154008, "run": "submission-fenced", "coordinator": "A", "event": "session_state", "state": "CONNECTED"}
+{"timestamp": "2026-11-04T14:49:50.890855+00:00", "time_ns": 1793803790890868580, "monotonic_ns": 306304646755912, "run": "submission-fenced", "coordinator": "A", "event": "checkpoint_rejected", "next_index": 800, "error": "BadVersionError"}
+{"timestamp": "2026-11-04T14:49:57.915363+00:00", "time_ns": 1793803797915386289, "monotonic_ns": 306311671274151, "run": "submission-fenced", "coordinator": "A", "event": "calculation_complete", "selected_rows": 3894, "vacancies_with_skills": 2986, "unique_pairs": 17801, "pair_frequency_sum": 81344, "source_rows_before_projection": 229388, "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b", "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b", "matches_lab3": true, "restored_index": 0, "processed_rows": 3894}
+{"timestamp": "2026-11-04T14:49:57.953401+00:00", "time_ns": 1793803797953418698, "monotonic_ns": 306311709306485, "run": "submission-fenced", "coordinator": "A", "event": "publish_rejected", "error": "BadVersionError", "epoch": 1, "epoch_version": 1, "message": "запись устаревшего лидера отклонена"}
+{"timestamp": "2026-11-04T14:49:57.956655+00:00", "time_ns": 1793803797956674092, "monotonic_ns": 306311712561852, "run": "submission-fenced", "coordinator": "A", "event": "session_state", "state": "LOST"}
+
+exit_code=0
+
+[2026-11-04T14:49:58.271420+00:00] $ docker wait de-lab4-submission-fenced-b
+0
+
+exit_code=0
+
+[2026-11-04T14:49:58.348365+00:00] $ docker logs de-lab4-submission-fenced-b
+{"timestamp": "2026-11-04T14:49:10.355329+00:00", "time_ns": 1793803750355371858, "monotonic_ns": 306264039990583, "run": "submission-fenced", "coordinator": "B", "event": "session_state", "state": "CONNECTED"}
+{"timestamp": "2026-11-04T14:49:10.355506+00:00", "time_ns": 1793803750355528277, "monotonic_ns": 306264040145967, "run": "submission-fenced", "coordinator": "B", "event": "started", "fencing": true, "requested_session_timeout_ms": 10000, "session_id": "0x200123fa3140008", "hosts": "zk1:2181,zk2:2181,zk3:2181"}
+{"timestamp": "2026-11-04T14:49:10.372003+00:00", "time_ns": 1793803750372015520, "monotonic_ns": 306264056632959, "run": "submission-fenced", "coordinator": "B", "event": "waiting_for_leadership"}
+{"timestamp": "2026-11-04T14:49:22.478530+00:00", "time_ns": 1793803762478544784, "monotonic_ns": 306276163162388, "run": "submission-fenced", "coordinator": "B", "event": "became_leader", "epoch": 2, "epoch_version": 2}
+{"timestamp": "2026-11-04T14:49:22.505251+00:00", "time_ns": 1793803762505262856, "monotonic_ns": 306276189880254, "run": "submission-fenced", "coordinator": "B", "event": "restored", "next_index": 600, "total_rows": 3894, "checkpoint": {"path": "runtime/submission-fenced/checkpoints/A-600.json", "next_index": 600, "coordinator": "A", "epoch": 1, "sha256": "e6eac7093003e74fdb5c129e203502d830c873f9819bbc599c17c35c2270a140"}}
+{"timestamp": "2026-11-04T14:49:22.528560+00:00", "time_ns": 1793803762528573345, "monotonic_ns": 306276213190949, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 800, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-800.json"}
+{"timestamp": "2026-11-04T14:49:22.971110+00:00", "time_ns": 1793803762971129890, "monotonic_ns": 306276655748132, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 1000, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-1000.json"}
+{"timestamp": "2026-11-04T14:49:23.397662+00:00", "time_ns": 1793803763397674341, "monotonic_ns": 306277082291889, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 1200, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-1200.json"}
+{"timestamp": "2026-11-04T14:49:23.878236+00:00", "time_ns": 1793803763878253366, "monotonic_ns": 306277562871077, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 1400, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-1400.json"}
+{"timestamp": "2026-11-04T14:49:24.338736+00:00", "time_ns": 1793803764338755244, "monotonic_ns": 306278023373044, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 1600, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-1600.json"}
+{"timestamp": "2026-11-04T14:49:24.773542+00:00", "time_ns": 1793803764773553684, "monotonic_ns": 306278458171278, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 1800, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-1800.json"}
+{"timestamp": "2026-11-04T14:49:25.210379+00:00", "time_ns": 1793803765210391809, "monotonic_ns": 306278895009349, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 2000, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-2000.json"}
+{"timestamp": "2026-11-04T14:49:25.654781+00:00", "time_ns": 1793803765654801025, "monotonic_ns": 306279339418820, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 2200, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-2200.json"}
+{"timestamp": "2026-11-04T14:49:26.093513+00:00", "time_ns": 1793803766093526174, "monotonic_ns": 306279778143678, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 2400, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-2400.json"}
+{"timestamp": "2026-11-04T14:49:26.532216+00:00", "time_ns": 1793803766532232885, "monotonic_ns": 306280216850512, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 2600, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-2600.json"}
+{"timestamp": "2026-11-04T14:49:27.030391+00:00", "time_ns": 1793803767030409242, "monotonic_ns": 306280715026897, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 2800, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-2800.json"}
+{"timestamp": "2026-11-04T14:49:27.522416+00:00", "time_ns": 1793803767522432055, "monotonic_ns": 306281207049790, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 3000, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-3000.json"}
+{"timestamp": "2026-11-04T14:49:28.000278+00:00", "time_ns": 1793803768000295771, "monotonic_ns": 306281684913758, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 3200, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-3200.json"}
+{"timestamp": "2026-11-04T14:49:28.449561+00:00", "time_ns": 1793803768449579388, "monotonic_ns": 306282134197200, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 3400, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-3400.json"}
+{"timestamp": "2026-11-04T14:49:28.893668+00:00", "time_ns": 1793803768893680914, "monotonic_ns": 306282578298406, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 3600, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-3600.json"}
+{"timestamp": "2026-11-04T14:49:29.374171+00:00", "time_ns": 1793803769374185266, "monotonic_ns": 306283058803081, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 3800, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-3800.json"}
+{"timestamp": "2026-11-04T14:49:29.834632+00:00", "time_ns": 1793803769834649967, "monotonic_ns": 306283519267796, "run": "submission-fenced", "coordinator": "B", "event": "checkpoint", "next_index": 3894, "total_rows": 3894, "path": "runtime/submission-fenced/checkpoints/B-3894.json"}
+{"timestamp": "2026-11-04T14:49:30.371566+00:00", "time_ns": 1793803770371583439, "monotonic_ns": 306284056201313, "run": "submission-fenced", "coordinator": "B", "event": "calculation_complete", "selected_rows": 3894, "vacancies_with_skills": 2986, "unique_pairs": 17801, "pair_frequency_sum": 81344, "source_rows_before_projection": 229388, "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b", "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b", "matches_lab3": true, "restored_index": 600, "processed_rows": 3294}
+{"timestamp": "2026-11-04T14:49:30.394628+00:00", "time_ns": 1793803770394641324, "monotonic_ns": 306284079259153, "run": "submission-fenced", "coordinator": "B", "event": "published", "message": "записал результат", "epoch": 2, "result_version": 1, "path": "results/submission-fenced/B/counts_2.csv"}
+{"timestamp": "2026-11-04T14:49:30.395468+00:00", "time_ns": 1793803770395480462, "monotonic_ns": 306284080098111, "run": "submission-fenced", "coordinator": "B", "event": "session_state", "state": "LOST"}
+
+exit_code=0
+
+[2026-11-04T14:49:58.433659+00:00] $ docker compose run --rm -T app python scripts/zk_inspect.py --run submission-fenced
+time="2026-11-04T17:49:58+03:00" level=warning msg="Found orphan containers ([de-lab4-submission-fenced-b de-lab4-submission-fenced-a]) for this project. If you removed or renamed this service in your compose file, you can run this command with the --remove-orphans flag to clean it up."
+{
+  "run": "submission-fenced",
+  "root": "/lab4/submission-fenced",
+  "epoch": {
+    "data": 2,
+    "version": 2,
+    "ephemeral_owner": 0
+  },
+  "leader": null,
+  "checkpoint": {
+    "data": {
+      "path": "runtime/submission-fenced/checkpoints/B-3894.json",
+      "next_index": 3894,
+      "coordinator": "B",
+      "epoch": 2,
+      "sha256": "6280e2d05411645fcb353c660ecae692076c6e2c085e77b801d7193c1cc1b5a1"
+    },
+    "version": 20,
+    "ephemeral_owner": 0
+  },
+  "result": {
+    "data": {
+      "coordinator": "B",
+      "epoch": 2,
+      "epoch_version": 2,
+      "path": "results/submission-fenced/B/counts_2.csv",
+      "metrics": {
+        "selected_rows": 3894,
+        "vacancies_with_skills": 2986,
+        "unique_pairs": 17801,
+        "pair_frequency_sum": 81344,
+        "source_rows_before_projection": 229388,
+        "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+        "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+        "matches_lab3": true,
+        "restored_index": 600,
+        "processed_rows": 3294
+      }
+    },
+    "version": 1,
+    "ephemeral_owner": 0
+  },
+  "publications": [
+    {
+      "path": "/lab4/submission-fenced/publications/result-0000000000",
+      "data": {
+        "coordinator": "B",
+        "epoch": 2,
+        "epoch_version": 2,
+        "path": "results/submission-fenced/B/counts_2.csv",
+        "metrics": {
+          "selected_rows": 3894,
+          "vacancies_with_skills": 2986,
+          "unique_pairs": 17801,
+          "pair_frequency_sum": 81344,
+          "source_rows_before_projection": 229388,
+          "counts_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+          "baseline_sha256": "99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b",
+          "matches_lab3": true,
+          "restored_index": 600,
+          "processed_rows": 3294
+        }
+      },
+      "version": 0,
+      "ephemeral_owner": 0
+    }
+  ]
+}
+
+exit_code=0
+
+[2026-11-04T14:49:59.877606+00:00] $ docker events --since 1793803749 --until 1793803760 --filter container=de-lab4-submission-fenced-a --filter event=pause --format "{{json .}}"
+{"Type":"container","Action":"pause","Actor":{"ID":"c3dd61d63f14f6d09ca6a7a7ec75f9474f6b9066b8f6f38d2254ceac09f596fb","Attributes":{"com.docker.compose.config-hash":"396c2948247979fa0c4702e42c520f86167dfc65ef6879378496203ad3a7d88c","com.docker.compose.depends_on":"","com.docker.compose.image":"sha256:ee77ff76a1b044adba77ee791dc3737673af46cfcf478469fd301c1fe65d7563","com.docker.compose.oneoff":"True","com.docker.compose.project":"de-lab4-zookeeper","com.docker.compose.project.config_files":"C:\\Users\\kastc\\OneDrive\\Desktop\\institute\\fifth_sem\\data engineering\\lab4 zookeeper\\compose.yaml","com.docker.compose.project.working_dir":"C:\\Users\\kastc\\OneDrive\\Desktop\\institute\\fifth_sem\\data engineering\\lab4 zookeeper","com.docker.compose.service":"app","com.docker.compose.slug":"13775bb34c04df41ff0cbbc1bd6fccbd3e6ba2508fad20259b179ec20cf3bfea","com.docker.compose.version":"2.40.3","desktop.docker.io/binds/0/Source":"C:\\Users\\kastc\\OneDrive\\Desktop\\institute\\fifth_sem\\data engineering\\lab4 zookeeper","desktop.docker.io/binds/0/SourceKind":"hostFile","desktop.docker.io/binds/0/Target":"/work","desktop.docker.io/ports.scheme":"v2","image":"de-lab4-coordinator:local","name":"de-lab4-submission-fenced-a"}},"scope":"local","time":1793803750,"timeNano":1793803750784353045}
+
+exit_code=0
+
+[2026-11-04T14:50:00.066795+00:00] $ docker rm -f de-lab4-submission-fenced-a
+de-lab4-submission-fenced-a
+
+exit_code=0
+
+[2026-11-04T14:50:00.247058+00:00] $ docker rm -f de-lab4-submission-fenced-b
+de-lab4-submission-fenced-b
+
+exit_code=0
+
+[2026-11-04T14:50:40.216306+00:00] $ docker compose exec -T zk1 zkCli.sh -server zk1:2181 -waitforconnection -timeout 10000
+stdin:
+get -s /lab4/submission-fenced/result
+quit
+
+Connecting to zk1:2181
+2026-11-04 14:50:40,812 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:zookeeper.version=3.9.6-a355171b081b5b60749db8f19cca1528b0df936f, built on 2026-09-03 19:29 UTC
+2026-11-04 14:50:40,814 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:host.name=zk1
+2026-11-04 14:50:40,815 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.version=17.0.21
+2026-11-04 14:50:40,815 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.vendor=Eclipse Adoptium
+2026-11-04 14:50:40,815 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.home=/opt/java/openjdk
+2026-11-04 14:50:40,816 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.class.path=/apache-zookeeper-3.9.6-bin/bin/../zookeeper-metrics-providers/zookeeper-prometheus-metrics/target/classes:/apache-zookeeper-3.9.6-bin/bin/../zookeeper-server/target/classes:/apache-zookeeper-3.9.6-bin/bin/../build/classes:/apache-zookeeper-3.9.6-bin/bin/../zookeeper-metrics-providers/zookeeper-prometheus-metrics/target/lib/*.jar:/apache-zookeeper-3.9.6-bin/bin/../zookeeper-server/target/lib/*.jar:/apache-zookeeper-3.9.6-bin/bin/../build/lib/*.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/zookeeper-prometheus-metrics-3.9.6.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/zookeeper-jute-3.9.6.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/zookeeper-3.9.6.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/snappy-java-1.1.10.5.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/slf4j-api-2.0.13.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/simpleclient_servlet-0.9.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/simpleclient_hotspot-0.9.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/simpleclient_common-0.9.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/simpleclient-0.9.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-transport-native-unix-common-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-transport-native-epoll-4.1.137.Final-linux-x86_64.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-transport-classes-epoll-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-transport-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-classes-2.0.81.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-boringssl-static-2.0.81.Final-windows-x86_64.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-boringssl-static-2.0.81.Final-osx-x86_64.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-boringssl-static-2.0.81.Final-osx-aarch_64.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-boringssl-static-2.0.81.Final-linux-x86_64.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-boringssl-static-2.0.81.Final-linux-aarch_64.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-tcnative-boringssl-static-2.0.81.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-resolver-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-handler-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-common-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-codec-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/netty-buffer-4.1.137.Final.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/metrics-core-4.1.12.1.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/logback-core-1.3.15.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/logback-classic-1.3.15.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jline-3.30.14-jdk8.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-util-ajax-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-util-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-servlet-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-server-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-security-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-io-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jetty-http-9.4.58.v20250814.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/javax.servlet-api-3.1.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jackson-databind-2.22.2.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jackson-core-2.22.2.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/jackson-annotations-2.22.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/commons-io-2.17.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/commons-cli-1.5.0.jar:/apache-zookeeper-3.9.6-bin/bin/../lib/audience-annotations-0.12.0.jar:/apache-zookeeper-3.9.6-bin/bin/../zookeeper-*.jar:/apache-zookeeper-3.9.6-bin/bin/../zookeeper-server/src/main/resources/lib/*.jar:/conf:
+2026-11-04 14:50:40,816 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.library.path=/usr/java/packages/lib:/usr/lib64:/lib64:/lib:/usr/lib
+2026-11-04 14:50:40,816 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.io.tmpdir=/tmp
+2026-11-04 14:50:40,816 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:java.compiler=<NA>
+2026-11-04 14:50:40,816 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.name=Linux
+2026-11-04 14:50:40,816 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.arch=amd64
+2026-11-04 14:50:40,817 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.version=6.6.87.2-microsoft-standard-WSL2
+2026-11-04 14:50:40,817 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:user.name=root
+2026-11-04 14:50:40,817 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:user.home=/root
+2026-11-04 14:50:40,817 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:user.dir=/apache-zookeeper-3.9.6-bin
+2026-11-04 14:50:40,817 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.memory.free=3MB
+2026-11-04 14:50:40,818 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.memory.max=247MB
+2026-11-04 14:50:40,818 [myid:] - INFO  [main:o.a.z.Environment@98] - Client environment:os.memory.total=7MB
+2026-11-04 14:50:40,820 [myid:] - INFO  [main:o.a.z.ZooKeeper@635] - Initiating client connection, connectString=zk1:2181 sessionTimeout=10000 watcher=org.apache.zookeeper.ZooKeeperMain$MyWatcher@ec756bd
+2026-11-04 14:50:40,828 [myid:] - INFO  [main:o.a.z.c.X509Util@84] - Setting -D jdk.tls.rejectClientInitiatedRenegotiation=true to disable client-initiated TLS renegotiation
+2026-11-04 14:50:40,834 [myid:] - INFO  [main:o.a.z.ClientCnxnSocket@235] - jute.maxbuffer value is 1048575 Bytes
+2026-11-04 14:50:40,840 [myid:] - INFO  [main:o.a.z.ClientCnxn@1734] - zookeeper.request.timeout value is 0. feature enabled=false
+2026-11-04 14:50:40,845 [myid:zk1:2181] - INFO  [main-SendThread(zk1:2181):o.a.z.ClientCnxn$SendThread@1170] - Opening socket connection to server zk1/172.23.0.3:2181.
+2026-11-04 14:50:40,845 [myid:zk1:2181] - INFO  [main-SendThread(zk1:2181):o.a.z.ClientCnxn$SendThread@1172] - SASL config status: Will not attempt to authenticate using SASL (unknown error)
+2026-11-04 14:50:40,849 [myid:zk1:2181] - INFO  [main-SendThread(zk1:2181):o.a.z.ClientCnxn$SendThread@1006] - Socket connection established, initiating session, client: /172.23.0.3:53170, server: zk1/172.23.0.3:2181
+2026-11-04 14:50:40,856 [myid:zk1:2181] - INFO  [main-SendThread(zk1:2181):o.a.z.ClientCnxn$SendThread@1438] - Session establishment complete on server zk1/172.23.0.3:2181, session id = 0x100123f9bd0000b, negotiated timeout = 10000
+
+WATCHER::
+
+WatchedEvent state:SyncConnected type:None path:null zxid: -1
+Welcome to ZooKeeper!
+JLine support is enabled
+[zk: zk1:2181(CONNECTED) 0] {"coordinator":"B","epoch":2,"epoch_version":2,"path":"results/submission-fenced/B/counts_2.csv","metrics":{"selected_rows":3894,"vacancies_with_skills":2986,"unique_pairs":17801,"pair_frequency_sum":81344,"source_rows_before_projection":229388,"counts_sha256":"99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b","baseline_sha256":"99918a602d0cf474484937d1e85cf6a667142d2977476503b95835ad12fe1b3b","matches_lab3":true,"restored_index":600,"processed_rows":3294}}
+cZxid = 0x30000007b
+ctime = Wed Nov 04 14:49:09 UTC 2026
+mZxid = 0x300000098
+mtime = Wed Nov 04 14:49:30 UTC 2026
+pZxid = 0x30000007b
+cversion = 0
+dataVersion = 1
+aclVersion = 0
+ephemeralOwner = 0x0
+dataLength = 477
+numChildren = 0
+[zk: zk1:2181(CONNECTED) 1] [zk: zk1:2181(CONNECTED) 1] 
+WATCHER::
+
+WatchedEvent state:Closed type:None path:null zxid: -1
+2026-11-04 14:50:41,123 [myid:] - INFO  [main-EventThread:o.a.z.ClientCnxn$EventThread@556] - EventThread shut down for session: 0x100123f9bd0000b
+2026-11-04 14:50:41,124 [myid:] - INFO  [main:o.a.z.ZooKeeper@1230] - Session: 0x100123f9bd0000b closed
+2026-11-04 14:50:41,125 [myid:] - INFO  [main:o.a.z.u.ServiceUtils@45] - Exiting JVM with code 0
+
+exit_code=0

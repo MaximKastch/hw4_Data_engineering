@@ -1,0 +1,32 @@
+{
+  "run": "submission-unfenced",
+  "fencing": false,
+  "pause_requested_clock": {
+    "time_ns": 1793803697409303090,
+    "monotonic_ns": 306210948261611
+  },
+  "docker_pause_time_ns": 1793803697543347900,
+  "backup_became_leader_time_ns": 1793803708568391117,
+  "failover_seconds": 11.025043217,
+  "failover_from_precommand_monotonic_seconds": 11.159086687,
+  "pause_command_seconds": 0.141,
+  "pause_duration_seconds": 40.0,
+  "measurement": "Docker daemon pause event timeNano to B became_leader time_ns; both clocks in Linux VM",
+  "checkpoint_observed_before_pause": 600,
+  "restored_index": 800,
+  "published_count": 2,
+  "rejected_count": 0,
+  "result_version": 2,
+  "result_owner": "A",
+  "checks": {
+    "both_computations_equal_lab3": true,
+    "backup_restored_nonzero_checkpoint": true,
+    "publications_expected": true,
+    "stale_rejected_only_with_fencing": true,
+    "pointer_version_expected": true,
+    "pointer_owner_expected": true,
+    "audit_count_expected": true,
+    "session_timeout_requested_10s": true,
+    "backup_epoch_newer": true
+  }
+}
